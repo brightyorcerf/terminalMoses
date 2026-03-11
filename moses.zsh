@@ -1,19 +1,35 @@
- # theme: The Burning Bush (Neon Green)
+#!/bin/bash
+echo "⚓ Welcome to TerminalMoses"
+echo "Choose your staff color (green, magenta, cyan, white):"
+read -p ">> " USER_COLOR < /dev/tty
 
-MOSES_STAFF="green" 
-MOSES_PLAGUE="red"
+# download the clean template
+curl -sL https://raw.githubusercontent.com/brightyorcerf/terminalMoses/main/moses.zsh -o ~/moses.zsh
 
-preexec() { 
-    print -P "\n%F{$MOSES_STAFF}┏━ %D{%L:%M:%S %p} ━━━━━━━━━━━━━━━━━━━━━━━%f"
-    print -P "%F{$MOSES_STAFF}┃%f %F{white}EXECUTING:%f %B$1%b"
-}
+# logic for Success/Error pairs
+case $USER_COLOR in
+  magenta)
+    STAFF="magenta"; PLAGUE="5" ;;
+  cyan)
+    STAFF="cyan"; PLAGUE="30" ;;
+  white)
+    STAFF="white"; PLAGUE="242" ;;
+  *) # Default to Hacker Green
+    STAFF="green"; PLAGUE="2" ;;
+esac
 
-precmd() {
-    local EXIT_CODE=$?
-    local COL=$MOSES_STAFF
-    [[ $EXIT_CODE -ne 0 ]] && COL=$MOSES_PLAGUE
-    print -P "%F{$COL}┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━%f\n"
-}
+# set colors  
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    sed -i '' "s/MOSES_STAFF=\"green\"/MOSES_STAFF=\"$STAFF\"/" ~/moses.zsh
+    sed -i '' "s/MOSES_PLAGUE=\"red\"/MOSES_PLAGUE=\"$PLAGUE\"/" ~/moses.zsh
+else
+    sed -i "s/MOSES_STAFF=\"green\"/MOSES_STAFF=\"$STAFF\"/" ~/moses.zsh
+    sed -i "s/MOSES_PLAGUE=\"red\"/MOSES_PLAGUE=\"$PLAGUE\"/" ~/moses.zsh
+fi
 
-# the "Part the Sea" Helper
-alias part='echo "Search (Cmd+F) for: ┏━"'
+# add to .zshrc
+if ! grep -q "source ~/moses.zsh" ~/.zshrc; then
+    echo -e "\n# TerminalMoses\nsource ~/moses.zsh" >> ~/.zshrc
+fi
+
+echo "✅ Parted! Now run: source ~/.zshrc"
