@@ -3,7 +3,7 @@
 
 echo "⚓ Welcome to TerminalMoses"
 echo "Choose your staff color (green, magenta, cyan, yellow, white, or a number 0-255):"
-read -p ">> " USER_COLOR
+read -p ">> " USER_COLOR < /dev/tty
 
 # 1. Download the core script
 curl -sL https://raw.githubusercontent.com/brightyorcerf/terminalMoses/main/moses.zsh -o ~/moses.zsh
