@@ -1,31 +1,70 @@
 #!/bin/bash
 
-echo "Installing dependencies..."
+echo "[bootstrap] resolving workspace graph..."
+sleep 0.2
+
+for i in {1..15}; do
+  echo "npm WARN deprecated @ai-agent/core-$i: legacy event loop detected"
+done
+
 sleep 0.3
-for i in {1..40}; do
-  echo "npm WARN deprecated package-$i"
+
+echo ""
+echo "[docker] starting distributed services..."
+
+services=("postgres" "redis" "vector-db" "embedding-worker" "gateway" "sandbox")
+
+for svc in "${services[@]}"; do
+  echo "[docker] $svc               starting..."
+  sleep 0.1
 done
 
 echo ""
-echo "Starting Docker services..."
-sleep 0.5
-for i in {1..25}; do
-  echo "[docker] container_$i starting..."
+echo "[gateway] healthcheck passed"
+echo "[redis] loaded RDB snapshot"
+echo "[postgres] database system is ready to accept connections"
+
+sleep 0.4
+
+echo ""
+echo "[embedding-worker] loading model shards..."
+
+for i in {1..12}; do
+  echo "[tensor] shard-$i loaded in $(awk 'BEGIN{srand(); printf "%.2f", rand()*2}')s"
+  sleep 0.05
 done
 
 echo ""
-echo "Running AI training pipeline..."
-sleep 0.5
-for i in {1..60}; do
-  echo "Epoch $i/60 - loss=$(awk 'BEGIN{srand(); print rand()}')"
+echo "[agent-runtime] launching autonomous pipeline..."
+
+sleep 0.2
+
+for i in {1..35}; do
+  TOKENS=$(( RANDOM % 9000 + 1000 ))
+  LATENCY=$(awk 'BEGIN{srand(); printf "%.2f", rand()*4}')
+  echo "[agent:$i] processed request | tokens=$TOKENS | latency=${LATENCY}s"
+  sleep 0.03
 done
 
 echo ""
-echo "ERROR: Connection timeout to vector database"
+echo "[vector-db] ERROR: connection timeout after 30000ms"
+echo "[vector-db] retrying replica sync..."
 sleep 0.5
 
 echo ""
-echo "Retrying..."
-sleep 0.5
+echo "Traceback (most recent call last):"
+echo "  File \"/runtime/pipeline.py\", line 182, in execute"
+echo "    await orchestrator.bootstrap()"
+echo "TimeoutError: vector shard unavailable"
 
+sleep 0.4
+
+echo ""
+echo "[recovery] failover node online"
+echo "[vector-db] synchronization restored"
+echo "[agent-runtime] pipeline stabilized"
+
+sleep 0.3
+
+echo ""
 echo "Build complete."
