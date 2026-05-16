@@ -13,4 +13,6 @@ fi
 # Remove moses.zsh
 rm -f ~/moses.zsh
 
-echo "✅ TerminalMoses uninstalled successfully! (Restart your terminal or run 'source ~/.zshrc' to apply)"
+unset MOSES_LOADED
+
+echo "TerminalMoses uninstalled successfully! (Restart your terminal or run 'source ~/.zshrc')"

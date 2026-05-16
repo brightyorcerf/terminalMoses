@@ -23,5 +23,5 @@ chmod +x install.sh
 ### Configuration
 Open `~/moses.zsh` to customize:
 - `MOSES_STAFF`: Change the main color (`green`, `magenta`, `cyan`, `white`)
-- `MOSES_PLAGUE`: Change the error color (`red`, `brightblack`)
+- `MOSES_PLAGUE`: Change the error color (`red`, `242`)
 - `MOSES_MODE`: Set to `"minimal"` for a compact, fast-paced view.

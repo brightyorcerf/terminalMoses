@@ -13,7 +13,7 @@ case $USER_COLOR in
   cyan)
     STAFF="cyan"; PLAGUE="red" ;;
   white)
-    STAFF="white"; PLAGUE="brightblack" ;;
+    STAFF="white"; PLAGUE="red" ;;
   *) echo "⚠️  Unknown color '$USER_COLOR', defaulting to green"
     STAFF="green"; PLAGUE="red" ;;
 esac
