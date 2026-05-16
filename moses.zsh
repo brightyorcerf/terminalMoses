@@ -3,11 +3,9 @@ MOSES_STAFF="green"
 MOSES_PLAGUE="red"    
 MOSES_MODE="full"
 
-autoload -Uz add-zsh-hook
-
 _moses_preexec() {
-  _MOSES_CMD_RAN=1
-  _MOSES_START_TIME=$SECONDS
+  typeset -g _MOSES_CMD_RAN=1
+  typeset -g _MOSES_START_TIME=$SECONDS
   if [[ "$MOSES_MODE" == "minimal" ]]; then
     print -P -n "%F{$MOSES_STAFF}┃%f "
     print -r -- "$1"
@@ -20,8 +18,8 @@ _moses_preexec() {
 
 _moses_precmd() {
   local EXIT_CODE=$?
-  [[ -z $_MOSES_CMD_RAN ]] && return
-  _MOSES_CMD_RAN=0
+  [[ "$_MOSES_CMD_RAN" != "1" ]] && return
+  typeset -g _MOSES_CMD_RAN=0
   local COL=$MOSES_STAFF
   [[ $EXIT_CODE -ne 0 ]] && COL=$MOSES_PLAGUE
   
@@ -38,6 +36,7 @@ _moses_precmd() {
 
 if [[ -z "$MOSES_LOADED" ]]; then
   export MOSES_LOADED=1
+  autoload -Uz add-zsh-hook
   add-zsh-hook precmd _moses_precmd
   add-zsh-hook preexec _moses_preexec
 fi

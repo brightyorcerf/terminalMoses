@@ -2,7 +2,6 @@
 Parting the sea of logs for developers who hate scrolling
 
 ### Install in one second:
-> **Note:** Piping to bash is controversial, but it's fast. For a safer installation, see the manual method below.
 ```bash
 curl -fsSL https://raw.githubusercontent.com/brightyorcerf/terminalMoses/main/install.sh | bash
 ```
@@ -14,6 +13,11 @@ git clone https://github.com/brightyorcerf/terminalMoses.git
 cd terminalMoses
 chmod +x install.sh
 ./install.sh
+```
+
+### Uninstall:
+```bash
+./uninstall.sh
 ```
 
 ### Configuration
