@@ -4,16 +4,16 @@ echo "Choose your staff color (green, magenta, cyan, white):"
 read -p ">> " USER_COLOR < /dev/tty
 
 # download the clean template
-curl -sL https://raw.githubusercontent.com/brightyorcerf/terminalMoses/main/moses.zsh -o ~/moses.zsh
+curl -sL https://raw.githubusercontent.com/brightyorcerf/terminalMoses/main/moses.zsh -o ~/moses.zsh || { echo "❌ Download failed"; exit 1; }
 
 # logic for Success/Error pairs
 case $USER_COLOR in
   magenta)
     STAFF="magenta"; PLAGUE="red" ;;
   cyan)
-    STAFF="cyan"; PLAGUE="30" ;;
+    STAFF="cyan"; PLAGUE="red" ;;
   white)
-    STAFF="white"; PLAGUE="242" ;;
+    STAFF="white"; PLAGUE="brightblack" ;;
   *) echo "⚠️  Unknown color '$USER_COLOR', defaulting to green"
     STAFF="green"; PLAGUE="red" ;;
 esac
