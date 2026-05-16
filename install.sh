@@ -1,6 +1,6 @@
 #!/bin/bash
 echo "⚓ Welcome to TerminalMoses"
-echo "Choose your staff:"
+echo "Choose your staff color (green, magenta, cyan, white):"
 read -p ">> " USER_COLOR < /dev/tty
 
 # download the clean template
