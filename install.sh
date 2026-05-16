@@ -1,10 +1,10 @@
 #!/bin/bash
 echo "⚓ Welcome to TerminalMoses"
-echo "Choose your staff color (green, magenta, cyan, white):"
+echo "Choose your staff:"
 read -p ">> " USER_COLOR < /dev/tty
 
 # download the clean template
-curl -sL https://raw.githubusercontent.com/brightyorcerf/terminalMoses/main/moses.zsh -o ~/moses.zsh || { echo "❌ Download failed"; exit 1; }
+curl -fsSL https://raw.githubusercontent.com/brightyorcerf/terminalMoses/main/moses.zsh -o ~/moses.zsh || { echo "❌ Download failed"; exit 1; }
 
 # logic for Success/Error pairs
 case $USER_COLOR in
